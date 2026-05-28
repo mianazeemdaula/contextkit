@@ -1,0 +1,26 @@
+{
+  "name": "contextkit",
+  "version": "0.1.0",
+  "description": "Save your AI context once. Inject into any AI tool.",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "contextkit": "./dist/bin.js", "ck": "./dist/bin.js" },
+  "files": ["dist", "templates", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "engines": { "node": ">=20.10.0" }
+}

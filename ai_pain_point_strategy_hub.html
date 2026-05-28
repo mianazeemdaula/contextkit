@@ -1,0 +1,336 @@
+
+
+<h2 class="sr-only">AI SaaS Pain Point Research Hub — pain points, chosen problem, solution build plan, and monetization strategy</h2>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('pain')"><i class="ti ti-chart-bar" aria-hidden="true"></i> Pain points</button>
+  <button class="tab" onclick="showTab('pick')"><i class="ti ti-target" aria-hidden="true"></i> Chosen problem</button>
+  <button class="tab" onclick="showTab('build')"><i class="ti ti-code" aria-hidden="true"></i> Build plan</button>
+  <button class="tab" onclick="showTab('money')"><i class="ti ti-coin" aria-hidden="true"></i> Monetize</button>
+  <button class="tab" onclick="showTab('repo')"><i class="ti ti-brand-github" aria-hidden="true"></i> Repo structure</button>
+</div>
+
+<div id="pain" class="panel active">
+  <p class="section-title">Top validated pain points — sourced from Reddit, X, Indie Hackers (2025–26)</p>
+  
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-num">500+</div><div class="stat-label">Reddit threads analyzed</div></div>
+    <div class="stat-card"><div class="stat-num">91h</div><div class="stat-label">Avg wasted context/user/year</div></div>
+    <div class="stat-card"><div class="stat-num">12</div><div class="stat-label">AI tools avg user juggles</div></div>
+    <div class="stat-card"><div class="stat-num">88%</div><div class="stat-label">Orgs burned out by AI sprawl</div></div>
+  </div>
+
+  <div class="card">
+    <div class="pain-row">
+      <div class="pain-score s-red">🔴</div>
+      <div class="pain-body">
+        <div class="pain-title">1. Context fragmentation — repeating yourself every session</div>
+        <div class="pain-sub">Users re-explain who they are, their project, rules, and preferences every single new chat. Context is scattered across 16+ apps (Notion, Google Docs, browser tabs).</div>
+        <div class="quote">"How many times have you had the exact same conversation with ChatGPT or Claude, explaining the same context over and over?" — Substack, 2025</div>
+        <div class="meta-row"><span class="badge badge-gap"><i class="ti ti-alert-circle" aria-hidden="true"></i> No good OSS solution</span><span class="badge badge-partial">Partial: enterprise tools only</span></div>
+      </div>
+    </div>
+
+    <div class="pain-row">
+      <div class="pain-score s-red">🔴</div>
+      <div class="pain-body">
+        <div class="pain-title">2. AI tool sprawl — 12 subscriptions, used 4</div>
+        <div class="pain-sub">Each tool solves one thing but creates coordination overhead. Month 6: paying for 12 tools, using 4, constantly context-switching. Output doesn't improve.</div>
+        <div class="quote">"You're paying for twelve tools, actively using four, and constantly context-switching between them. Your mental model of your own workflow is fragmented." — Dev.to</div>
+        <div class="meta-row"><span class="badge badge-partial">Partial: Zapier, Make</span></div>
+      </div>
+    </div>
+
+    <div class="pain-row">
+      <div class="pain-score s-amber">🟡</div>
+      <div class="pain-body">
+        <div class="pain-title">3. Inconsistent AI output — different result every time</div>
+        <div class="pain-sub">Same prompt gives different quality output per session. Architectural decisions change between conversations. Impossible to build reliable workflows.</div>
+        <div class="quote">"Inconsistent patterns across different sessions. Architectural decisions that changed randomly between conversations." — Dev.to 2025</div>
+        <div class="meta-row"><span class="badge badge-partial">Partial: custom instructions in ChatGPT</span></div>
+      </div>
+    </div>
+
+    <div class="pain-row">
+      <div class="pain-score s-amber">🟡</div>
+      <div class="pain-body">
+        <div class="pain-title">4. Internal SEO linking at scale — still unsolved</div>
+        <div class="pain-sub">700+ upvote Reddit thread. Multiple devs tried to build tools, users begging for access. No good solution exists for automatically managing internal links across large content sites.</div>
+        <div class="meta-row"><span class="badge badge-gap">No solution</span><span class="badge badge-solved">High demand confirmed</span></div>
+      </div>
+    </div>
+
+    <div class="pain-row">
+      <div class="pain-score s-blue">🔵</div>
+      <div class="pain-body">
+        <div class="pain-title">5. AI agent reliability — multi-step tasks still fail</div>
+        <div class="pain-sub">Agents lose context mid-task, get stuck in loops, forget rules halfway through. "Context rot" is the #1 bottleneck for AI coding agents. Solved for single steps, not multi-hour tasks.</div>
+        <div class="meta-row"><span class="badge badge-partial">Partial: LangGraph, AutoGPT (complex to use)</span></div>
+      </div>
+    </div>
+
+    <div class="pain-row">
+      <div class="pain-score s-blue">🔵</div>
+      <div class="pain-body">
+        <div class="pain-title">6. Non-technical users blocked from powerful AI</div>
+        <div class="pain-sub">All the best solutions (RAG, agents, context engineering) require developer setup. 88% of organizations fail AI adoption due to complexity barriers.</div>
+        <div class="meta-row"><span class="badge badge-gap">Gap for non-technical market</span></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="cta-btn" onclick="sendPrompt('Tell me more about the top pain point — context fragmentation — and what existing attempts have been made to solve it')">Dig deeper into #1 pain point ↗</button>
+</div>
+
+<div id="pick" class="panel">
+  <div class="highlight-card">
+    <div class="hl-title"><i class="ti ti-bulb" aria-hidden="true"></i> Chosen problem <span class="hl-tag">Best opportunity</span></div>
+    <div class="hl-body">Context fragmentation is the #1 unsolved, high-demand, AI-agnostic pain point with no strong open-source solution. A Berkeley MICS 2025 research project (ContextOS) validated it with 20+ users. An Indie Hackers analysis of 500 Reddit complaints confirmed it tops the list over even hallucination complaints.</div>
+  </div>
+
+  <p class="section-title">Why this problem, not the others</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="pain-title" style="margin-bottom:8px"><i class="ti ti-check" aria-hidden="true"></i> Universal</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.6">Every person who uses ANY AI tool (Claude, ChatGPT, Gemini, Cursor) hits this. Not niche.</div>
+    </div>
+    <div class="card">
+      <div class="pain-title" style="margin-bottom:8px"><i class="ti ti-check" aria-hidden="true"></i> No OSS solution</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.6">Existing solutions are either $20/mo enterprise tools or require technical setup (LangChain). Nothing simple and free.</div>
+    </div>
+    <div class="card">
+      <div class="pain-title" style="margin-bottom:8px"><i class="ti ti-check" aria-hidden="true"></i> Buildable solo</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.6">Not a model problem. It's a file management + UI problem. Can be built by one person in weeks, not months.</div>
+    </div>
+    <div class="card">
+      <div class="pain-title" style="margin-bottom:8px"><i class="ti ti-check" aria-hidden="true"></i> Clear monetization</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.6">OSS for developers → hosted SaaS for non-technical users. Proven model (Plausible, Cal.com, Umami).</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <p class="section-title">The specific problem statement</p>
+  <div class="card">
+    <div style="font-size:14px;line-height:1.8;color:var(--color-text-primary)">
+      <strong>Problem:</strong> Every AI power user has 3–10 "contexts" they use regularly — their company, their project, their writing style, their coding standards. These exist as scattered Notion pages, Google Docs, sticky notes, and long system prompts. Every new AI session means finding these, copying them in, and explaining everything again. There is no open-source, AI-agnostic way to manage, version, and instantly inject these contexts into any AI tool.
+    </div>
+  </div>
+  <button class="cta-btn" onclick="sendPrompt('Give me a full technical specification for building the ContextKit solution')">Get full technical spec ↗</button>
+</div>
+
+<div id="build" class="panel">
+  <div class="highlight-card">
+    <div class="hl-title"><i class="ti ti-box" aria-hidden="true"></i> Solution: ContextKit <span class="hl-tag">Open source</span></div>
+    <div class="hl-body">An open-source, AI-agnostic context management system. Save your project context, personal profile, style guides, and prompts once. Inject them into any AI tool in one click. Works as a browser extension, CLI, and web app.</div>
+  </div>
+
+  <p class="section-title">Core features</p>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <div class="feature-icon"><i class="ti ti-file-text" aria-hidden="true"></i></div>
+      <div class="feature-label">Context profiles</div>
+      <div class="feature-desc">Save named contexts (Work, Personal, Project X) with full markdown support</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i class="ti ti-copy" aria-hidden="true"></i></div>
+      <div class="feature-label">One-click inject</div>
+      <div class="feature-desc">Browser extension injects selected context into any AI chat with one click</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i class="ti ti-git-branch" aria-hidden="true"></i></div>
+      <div class="feature-label">Version history</div>
+      <div class="feature-desc">Git-backed context versioning. See how your prompts evolved over time</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i class="ti ti-share" aria-hidden="true"></i></div>
+      <div class="feature-label">Team sharing</div>
+      <div class="feature-desc">Share context profiles across a team. Everyone starts with the same baseline</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i class="ti ti-api" aria-hidden="true"></i></div>
+      <div class="feature-label">API + CLI</div>
+      <div class="feature-desc">Pipe contexts into any workflow: <span style="font-family:var(--font-mono);font-size:11px">ck inject my-project | claude</span></div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i class="ti ti-template" aria-hidden="true"></i></div>
+      <div class="feature-label">Public templates</div>
+      <div class="feature-desc">Community-built context starters for common roles: developer, writer, marketer</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <p class="section-title">Build phases</p>
+  <div class="card">
+    <div class="phase-row">
+      <div class="phase-num">1</div>
+      <div class="phase-content">
+        <div class="phase-title">Week 1–2: Core CLI + local storage</div>
+        <div class="phase-items"><ul>
+          <li>TypeScript CLI with <span style="font-family:var(--font-mono);font-size:11px">init, add, list, get, copy</span> commands</li>
+          <li>Local JSON/markdown file storage in <span style="font-family:var(--font-mono);font-size:11px">~/.contextkit/</span></li>
+          <li>Publish to npm — <span style="font-family:var(--font-mono);font-size:11px">npx contextkit</span> works on first day</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-num">2</div>
+      <div class="phase-content">
+        <div class="phase-title">Week 3–4: Browser extension</div>
+        <div class="phase-items"><ul>
+          <li>Chrome/Firefox extension with popup showing saved contexts</li>
+          <li>One-click inject into ChatGPT, Claude, Gemini, Perplexity text fields</li>
+          <li>Reads local contexts via native messaging API</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-num">3</div>
+      <div class="phase-content">
+        <div class="phase-title">Week 5–6: Web app + GitHub release</div>
+        <div class="phase-items"><ul>
+          <li>Next.js + Tailwind web UI for visual context management</li>
+          <li>Public GitHub repo with full README, examples, docs</li>
+          <li>ProductHunt launch, post on r/ChatGPT, r/ClaudeAI, r/LocalLLaMA</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="phase-row">
+      <div class="phase-num">4</div>
+      <div class="phase-content">
+        <div class="phase-title">Week 7–8: Cloud sync (SaaS layer)</div>
+        <div class="phase-items"><ul>
+          <li>Supabase backend for cloud storage + auth</li>
+          <li>Team sharing, version history, public context templates</li>
+          <li>Stripe integration for paid tiers</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+  <button class="cta-btn" onclick="sendPrompt('Write the actual README.md for the ContextKit GitHub repository')">Draft the README ↗</button>
+</div>
+
+<div id="money" class="panel">
+  <p class="section-title">Model: open-core SaaS (proven by Cal.com, Plausible, Umami)</p>
+  
+  <div class="card">
+    <div class="tier-row">
+      <div class="tier-name">Free (OSS)</div>
+      <div class="tier-price" style="color:var(--color-text-success)">$0 forever</div>
+      <div class="tier-desc">Self-hosted CLI + browser extension. Unlimited local contexts. Full source on GitHub. This is the growth engine — 10,000 users get you a brand.</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-name">Personal</div>
+      <div class="tier-price">$7/month</div>
+      <div class="tier-desc">Cloud sync across devices, version history, 50 contexts, mobile access. Target: freelancers and power users who can't be bothered self-hosting.</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-name">Team</div>
+      <div class="tier-price">$19/user/mo</div>
+      <div class="tier-desc">Shared team context library, admin controls, onboarding templates, usage analytics. Target: 3–20 person teams using AI daily.</div>
+    </div>
+    <div class="tier-row">
+      <div class="tier-name">Enterprise</div>
+      <div class="tier-price">$79/user/mo</div>
+      <div class="tier-desc">SSO, audit logs, on-prem deployment, SLA, dedicated support. Target: companies that need control + compliance.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <p class="section-title">Revenue math (conservative)</p>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-num">10k</div><div class="stat-label">GitHub stars → credibility</div></div>
+    <div class="stat-card"><div class="stat-num">2%</div><div class="stat-label">Free → paid conversion</div></div>
+    <div class="stat-card"><div class="stat-num">$4.2k</div><div class="stat-label">MRR at 600 paid users</div></div>
+    <div class="stat-card"><div class="stat-num">$50k+</div><div class="stat-label">ARR at first enterprise deal</div></div>
+  </div>
+
+  <div class="divider"></div>
+  <p class="section-title">Non-technical user strategy (the "live" version)</p>
+  <div class="card">
+    <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.8">
+      <strong style="color:var(--color-text-primary);display:block;margin-bottom:6px">contextkit.app — the hosted no-code version</strong>
+      Non-technical users land on a clean web app. They fill out a guided form: "Tell me about your role", "What project are you working on?", "What's your preferred tone?" — the app auto-generates their context profile. One click copies it into any AI tool. No GitHub, no CLI, no setup. This is the product they pay for.
+      <br><br>
+      <strong style="color:var(--color-text-primary)">Acquisition loop:</strong> Technical users find it on GitHub → they share the web app with non-technical teammates → teammates subscribe. This is exactly how Notion, Linear, and Vercel grew.
+    </div>
+  </div>
+  <button class="cta-btn" onclick="sendPrompt('Write a landing page copy for contextkit.app targeting non-technical AI users')">Draft landing page copy ↗</button>
+</div>
+
+<div id="repo" class="panel">
+  <p class="section-title">GitHub repository structure — the pain point tracker + ContextKit</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="pain-title" style="margin-bottom:8px"><i class="ti ti-folder" aria-hidden="true"></i> Repo 1: ai-pain-points</div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:8px">Public database of validated AI SaaS pain points from Reddit/X/HN. Community-contributed. Evidence-backed.</div>
+      <div class="repo-file">
+<span class="repo-folder">ai-pain-points/</span>
+├── README.md
+├── <span class="repo-folder">pain-points/</span>
+│   ├── context-fragmentation.md
+│   ├── tool-sprawl.md
+│   ├── prompt-inconsistency.md
+│   └── _template.md
+├── <span class="repo-folder">evidence/</span>
+│   ├── reddit-threads.md
+│   └── x-posts.md
+├── <span class="repo-folder">solutions/</span>
+│   └── contextkit.md
+└── CONTRIBUTING.md
+      </div>
+    </div>
+    <div class="card">
+      <div class="pain-title" style="margin-bottom:8px"><i class="ti ti-folder" aria-hidden="true"></i> Repo 2: contextkit</div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:8px">The open-source solution. CLI + browser extension + web app.</div>
+      <div class="repo-file">
+<span class="repo-folder">contextkit/</span>
+├── README.md
+├── packages/
+│   ├── <span class="repo-folder">cli/</span> (npm package)
+│   ├── <span class="repo-folder">extension/</span> (chrome/firefox)
+│   └── <span class="repo-folder">web/</span> (Next.js app)
+├── <span class="repo-folder">docs/</span>
+│   ├── getting-started.md
+│   └── api-reference.md
+├── <span class="repo-folder">templates/</span>
+│   ├── developer.md
+│   ├── writer.md
+│   └── marketer.md
+└── LICENSE (MIT)
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <p class="section-title">Pain point submission template</p>
+  <div class="card">
+    <div class="repo-file" style="line-height:2">
+# [Pain Point Title]
+
+## Evidence
+- Reddit: [link] — [upvotes] upvotes
+- X post: [link] — [engagement]
+
+## Problem statement
+[1 paragraph, from user's perspective]
+
+## User quote
+> "..."
+
+## Current solutions
+| Tool | Solves it? | Why it falls short |
+|------|-----------|-------------------|
+
+## Opportunity
+[What a good solution would look like]
+
+## Status
+- [ ] No solution
+- [ ] Partial solution  
+- [ ] Good solution exists
+    </div>
+  </div>
+  <button class="cta-btn" onclick="sendPrompt('Write the full pain point markdown file for the context fragmentation problem, including all Reddit and X evidence')">Generate first pain point file ↗</button>
+</div>
+
