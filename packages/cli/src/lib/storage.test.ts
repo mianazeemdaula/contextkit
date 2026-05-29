@@ -42,10 +42,10 @@ describe('storage', () => {
   });
 
   it('writes a snapshot per save', async () => {
-    await writeContext('snap', { name: 'snap' }, 'one');
+    const fm1 = await writeContext('snap', { name: 'snap' }, 'one');
     await writeContext('snap', { name: 'snap' }, 'two');
-    const versions = await readdir(join(versionsDir(), 'snap'));
-    expect(versions.length).toBe(2);
+    const versions = await readdir(join(versionsDir(), fm1.id));
+    expect(versions.sort()).toEqual(['v1.ctx', 'v2.ctx']);
     rmSync(dir, { recursive: true, force: true });
   });
 });

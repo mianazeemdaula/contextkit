@@ -1,0 +1,17 @@
+# CODEOWNERS — review routing for ContextKit
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Catch-all: any path without a more specific match.
+*                          @contextkit/maintainers
+
+# Per-package owners
+/packages/cli/             @contextkit/maintainers @contextkit/cli-team
+/packages/extension/       @contextkit/maintainers @contextkit/extension-team
+/packages/web/             @contextkit/maintainers @contextkit/web-team
+
+# Cross-cutting infra
+/.github/                  @contextkit/maintainers
+/.changeset/               @contextkit/maintainers
+/docs/                     @contextkit/maintainers @contextkit/docs-team
+/landing/                  @contextkit/maintainers @contextkit/web-team
+/templates/                @contextkit/maintainers

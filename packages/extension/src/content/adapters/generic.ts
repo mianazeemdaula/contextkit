@@ -1,19 +1,14 @@
 // Generic adapter: finds the visible textarea / contenteditable, focuses it,
 // and inserts text at the caret. Used directly as the fallback and indirectly
-// by each per-tool adapter at Phase 2.
+// by each per-tool adapter.
+//
+// SELECTOR maintenance lives in the per-tool adapters; this file is intentionally
+// generic — it should never need tool-specific patches.
 
 import type { InjectResult } from "../../lib/messages.js";
-
-function isVisible(el: Element): boolean {
-  if (!(el instanceof HTMLElement)) return false;
-  const rect = el.getBoundingClientRect();
-  if (rect.width === 0 || rect.height === 0) return false;
-  const style = window.getComputedStyle(el);
-  return style.visibility !== "hidden" && style.display !== "none";
-}
+import { isVisible } from "../lib/wait.js";
 
 export function findEditor(root: ParentNode = document): HTMLElement | null {
-  // SELECTOR: brittle — update if tool's DOM changes (last verified: 2026-05-28)
   const candidates = Array.from(
     root.querySelectorAll<HTMLElement>(
       'textarea, [contenteditable="true"], [contenteditable=""], [role="textbox"]',
@@ -28,6 +23,11 @@ export function findEditor(root: ParentNode = document): HTMLElement | null {
     return br.width * br.height - ar.width * ar.height;
   });
   return visible[0] ?? null;
+}
+
+export function editorIsEmpty(el: HTMLElement): boolean {
+  if (el instanceof HTMLTextAreaElement) return el.value.trim() === "";
+  return (el.textContent ?? "").trim() === "";
 }
 
 function insertIntoTextarea(el: HTMLTextAreaElement, text: string): void {

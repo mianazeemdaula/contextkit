@@ -1,11 +1,32 @@
 {
   "name": "contextkit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Save your AI context once. Inject into any AI tool.",
   "license": "MIT",
   "type": "module",
   "bin": { "contextkit": "./dist/bin.js", "ck": "./dist/bin.js" },
   "files": ["dist", "templates", "README.md"],
+  "keywords": [
+    "ai",
+    "context",
+    "prompt",
+    "cli",
+    "chatgpt",
+    "claude",
+    "gemini",
+    "cursor",
+    "copilot",
+    "prompt-engineering"
+  ],
+  "homepage": "https://contextkit.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contextkit/contextkit.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/contextkit/contextkit/issues"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc -p tsconfig.json --watch",

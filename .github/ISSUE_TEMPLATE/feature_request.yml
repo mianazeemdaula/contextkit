@@ -1,0 +1,44 @@
+name: Feature request
+description: Suggest a new capability for the CLI, extension, web app, or docs.
+title: "[feat]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion! Please describe what you'd like ContextKit to do and the problem it solves.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - CLI (`contextkit` / `ck`)
+        - Browser extension
+        - Web app (contextkit.app)
+        - Docs site
+        - New AI-tool adapter
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user problem or workflow gap motivates this request?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How would you like it to work? Sketch CLI commands, UI flows, or APIs.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context

@@ -1,9 +1,10 @@
 import type { Command } from 'commander';
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assertSlug } from '../lib/slug.js';
-import { contextPath, ensureLayout, readContext } from '../lib/storage.js';
+import { ensureLayout, readContext, writeContext } from '../lib/storage.js';
+import { parse } from '../lib/frontmatter.js';
 import { CkError } from '../errors.js';
 import { info, success } from '../lib/log.js';
 
@@ -39,8 +40,8 @@ function bundledDir(): string {
 
 async function listHandler(opts: ListOpts): Promise<void> {
   const dir = bundledDir();
-  const entries = (await readdir(dir)).filter((e) => e.endsWith('.md')).sort();
-  const names = entries.map((e) => e.slice(0, -3));
+  const entries = (await readdir(dir)).filter((e) => e.endsWith('.ctx')).sort();
+  const names = entries.map((e) => e.slice(0, -4));
   if (opts.json) {
     process.stdout.write(`${JSON.stringify(names, null, 2)}\n`);
     return;
@@ -63,13 +64,18 @@ async function useHandler(name: string, opts: UseOpts): Promise<void> {
     if (e instanceof CkError && e.message.includes('already exists')) throw e;
     // not-found is fine
   }
-  const src = join(bundledDir(), `${name}.md`);
+  const src = join(bundledDir(), `${name}.ctx`);
   let raw: string;
   try {
     raw = await readFile(src, 'utf8');
   } catch {
     throw new CkError('EUSER', `template "${name}" not found`);
   }
-  await writeFile(contextPath(slug), raw, 'utf8');
+  const parsed = parse(raw);
+  const fields: Parameters<typeof writeContext>[1] = { name: parsed.frontmatter.name || slug };
+  if (parsed.frontmatter.tags.length > 0) fields.tags = parsed.frontmatter.tags;
+  if (parsed.frontmatter.description !== undefined)
+    fields.description = parsed.frontmatter.description;
+  await writeContext(slug, fields, parsed.body);
   success(`installed template "${name}" as "${slug}"`);
 }

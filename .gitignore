@@ -6,6 +6,7 @@ node_modules/
 dist/
 build/
 .next/
+docs/
 out/
 *.tsbuildinfo
 
@@ -40,3 +41,7 @@ packages/extension/*.zip
 
 # Turbo / caches
 .turbo/
+
+# Local-only test scaffolding (developer scratch — not for repo)
+local-tests/
+

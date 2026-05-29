@@ -9,7 +9,17 @@ import { register as registerEdit } from './commands/edit.js';
 import { register as registerRm } from './commands/rm.js';
 import { register as registerCopy } from './commands/copy.js';
 import { register as registerInject } from './commands/inject.js';
+import { register as registerHistory } from './commands/history.js';
+import { register as registerServe } from './commands/serve.js';
+import { register as registerImport } from './commands/import.js';
+import { register as registerExport } from './commands/export.js';
 import { register as registerTemplate } from './commands/template.js';
+import { register as registerCompletions } from './commands/completions.js';
+import { register as registerSync } from './commands/sync.js';
+import { register as registerLogin } from './commands/login.js';
+import { register as registerLogout } from './commands/logout.js';
+import { register as registerToken } from './commands/token.js';
+import { register as registerTelemetry } from './commands/telemetry.js';
 import { CkError, exitCodeFor } from './errors.js';
 import { error } from './lib/log.js';
 
@@ -43,7 +53,17 @@ export function buildProgram(): Command {
   registerRm(program);
   registerCopy(program);
   registerInject(program);
+  registerHistory(program);
+  registerServe(program);
+  registerImport(program);
+  registerExport(program);
   registerTemplate(program);
+  registerCompletions(program);
+  registerSync(program);
+  registerLogin(program);
+  registerLogout(program);
+  registerToken(program);
+  registerTelemetry(program);
 
   program
     .command('version')

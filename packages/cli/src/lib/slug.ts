@@ -17,3 +17,29 @@ export function assertSlug(s: string): string {
   }
   return s;
 }
+
+/** Convert an arbitrary human name into a URL-safe slug. */
+export function slugify(name: string): string {
+  const s = name
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 64)
+    .replace(/-+$/g, '');
+  return s.length > 0 ? s : 'context';
+}
+
+/** Rough word count of a body of text. */
+export function wordCount(text: string): number {
+  const trimmed = text.trim();
+  if (trimmed.length === 0) return 0;
+  return trimmed.split(/\s+/).length;
+}
+
+/**
+ * cl100k-style token estimate: ~1 token per 4 characters (spec §4.3).
+ */
+export function estimateTokens(text: string): number {
+  return Math.ceil(text.length / 4);
+}

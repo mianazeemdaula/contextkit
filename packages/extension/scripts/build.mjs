@@ -16,6 +16,7 @@ import { rm, mkdir, copyFile, writeFile, readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -110,9 +111,20 @@ async function copyIcons() {
   }
 }
 
+function generateIcons() {
+  // Regenerate src/icons/{16,48,128}.png from the programmatic generator so
+  // dist/ always carries fresh, real (non-placeholder) icons.
+  const script = path.join(__dirname, "make-icons.mjs");
+  const res = spawnSync(process.execPath, [script], { stdio: "inherit" });
+  if (res.status !== 0) {
+    throw new Error(`make-icons.mjs exited with code ${res.status}`);
+  }
+}
+
 async function main() {
   await rm(dist, { recursive: true, force: true });
   await ensureDir(dist);
+  generateIcons();
   await Promise.all([bundleBackground(), bundleContent(), bundlePopup()]);
   await writeManifest();
   await copyIcons();

@@ -4,6 +4,7 @@ import { readContext, readContextRaw } from '../lib/storage.js';
 
 interface GetOpts {
   raw?: boolean;
+  metadata?: boolean;
 }
 
 /** Register `ck get <slug>` on the program. */
@@ -12,12 +13,13 @@ export function register(program: Command): void {
     .command('get <slug>')
     .description('print the body of a context to stdout')
     .option('--raw', 'include YAML frontmatter')
+    .option('--metadata', 'include the frontmatter header (alias for --raw)')
     .action((slug: string, opts: GetOpts) => handler(slug, opts));
 }
 
 async function handler(slug: string, opts: GetOpts): Promise<void> {
   assertSlug(slug);
-  if (opts.raw) {
+  if (opts.raw || opts.metadata) {
     const raw = await readContextRaw(slug);
     process.stdout.write(raw.endsWith('\n') ? raw : `${raw}\n`);
     return;

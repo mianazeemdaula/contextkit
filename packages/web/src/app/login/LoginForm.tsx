@@ -26,7 +26,9 @@ export function LoginForm() {
       const supabase = getBrowserSupabase();
       const { error: err } = await supabase.auth.signInWithOtp({
         email,
-        options: { emailRedirectTo: `${window.location.origin}/dashboard` }
+        // Magic-link callback handled by /auth/callback (exchangeCodeForSession).
+        // See https://supabase.com/docs/guides/auth/server-side/email-based-auth-with-pkce-flow-for-ssr
+        options: { emailRedirectTo: `${window.location.origin}/auth/callback` }
       });
       if (err) throw err;
       setStatus("sent");

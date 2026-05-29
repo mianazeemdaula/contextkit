@@ -116,24 +116,84 @@ contextkit/
 
 ## Roadmap
 
-- [x] **Phase 1 · Core CLI + local storage** (Week 1–2)
-  - `init`, `add`, `list`, `get`, `copy`, `inject` commands
-  - Local Markdown/JSON store in `~/.contextkit/`
-  - Published to npm
-- [ ] **Phase 2 · Browser extension** (Week 3–4)
-  - Chrome/Firefox popup with saved contexts
-  - One-click inject into ChatGPT, Claude, Gemini, Perplexity
-  - Native messaging to read local contexts
-- [ ] **Phase 3 · Web app + public launch** (Week 5–6)
-  - Next.js + Tailwind UI for visual context management
-  - Public templates gallery
-  - ProductHunt / Reddit launch
-- [ ] **Phase 4 · Cloud sync (SaaS layer)** (Week 7–8)
-  - Supabase backend, auth, multi-device sync
-  - Team sharing, version history
-  - Paid tiers via Stripe
+Status legend: ✅ shipped · 🟡 scaffolded, hardening · ⏳ planned
 
-See open issues for fine-grained tracking.
+### Phase 1 · Core CLI + local storage — 🟡 scaffolded, pre-release
+
+- [x] `init`, `add`, `list`, `get`, `edit`, `delete`, `copy`, `inject`, `template` commands
+- [x] `history`, `serve` (local API on 127.0.0.1:7842), `import`, `export` commands
+- [x] Local `.ctx` (YAML-frontmatter + Markdown) store in `~/.contextkit/`
+- [x] Version snapshots on every save under `history/<id>/vN.ctx`
+- [x] Cross-platform clipboard (pbcopy / xclip / clip.exe)
+- [x] Bundled templates (developer, writer, marketer)
+- [x] `login`, `logout`, `token`, `sync`, `completions`, `telemetry` commands
+- [x] Shell completions (`bash`, `zsh`, `fish`)
+- [ ] Publish `contextkit` to npm (needs `NPM_TOKEN`)
+- [ ] GitHub release with prebuilt single-file binary
+
+### Phase 2 · Browser extension — 🟡 scaffolded
+
+- [x] MV3 manifest, service worker, popup (React), content-script router
+- [x] Per-tool adapters: ChatGPT, Claude, Gemini, Perplexity (4 candidate selectors each)
+- [x] Native-messaging bridge with graceful CLI-unreachable fallback
+- [x] OS install scripts for native host (mac / linux / windows)
+- [x] Hardened DOM selectors with `MutationObserver` wait + dated maintenance notes
+- [x] Generated `CK` icon set (16/48/128 PNGs via zero-dep encoder)
+- [x] Keyboard shortcuts (`⌘⇧K` open popup, `⌘⇧I` inject default)
+- [x] Per-tool "auto-prepend on new chat" toggle (settings panel in popup)
+- [ ] Chrome Web Store submission (needs developer account)
+- [ ] Mozilla Add-ons (AMO) submission with signed XPI (needs AMO account)
+
+### Phase 3 · Web app + public launch — 🟡 scaffolded
+
+- [x] Next.js 15 + Tailwind, marketing pages render without env vars
+- [x] Landing wired to copy in [`landing/COPY.md`](./landing/COPY.md)
+- [x] App routes: dashboard, contexts CRUD, login (magic link), templates
+- [x] REST API: `/api/contexts` and `/api/contexts/[id]`
+- [x] CodeMirror-based Markdown editor (`@uiw/react-md-editor`)
+- [x] Version-history UI backed by `context_versions` (with restore)
+- [x] Public templates gallery with one-click import
+- [x] `/auth/callback` route for magic-link redirect (PKCE flow)
+- [x] OG image + favicon set (Next 15 `ImageResponse`)
+- [ ] Deploy to `contextkit.app` (needs Vercel project)
+- [ ] Launch: Product Hunt + r/ChatGPT + r/ClaudeAI + r/LocalLLaMA + HN Show
+
+### Phase 4 · Cloud sync · SaaS layer — 🟡 scaffolded
+
+- [x] Supabase server + browser clients (`@supabase/ssr`)
+- [x] SQL schema with row-level-security policies (8 policies)
+- [x] Auth middleware + session refresh
+- [x] Bidirectional `ck sync` protocol — `--push`/`--pull`/`--status` + `/api/sync/{pull,push}` routes wired
+- [x] CLI auth handshake — `/api/cli/auth` + `/cli/auth` browser callback
+- [x] Conflict resolution: server returns `{accepted, conflicts}`, CLI honors `--force`
+- [x] Team sharing: `team_invites` table, admin invite route, accept page
+- [x] Stripe billing stub: checkout session + signature-verified webhook (needs Stripe keys)
+- [ ] Usage analytics dashboard (telemetry pipeline exists CLI-side, UI pending)
+- [ ] Audit log for Enterprise tier
+- [ ] SSO (SAML / OIDC) for Enterprise
+
+### Phase 5 · Ecosystem (post-launch) — ⏳ planned
+
+- [ ] VS Code extension — inject contexts into Copilot Chat / Cursor side-panel
+- [ ] Raycast / Alfred plugin
+- [ ] iOS / Android share-sheet app
+- [ ] Public REST API + API keys (server side exists; key-rotation UI pending)
+- [ ] Webhooks (context updated → trigger your automation)
+- [ ] Community template registry at `templates.contextkit.app`
+- [ ] AI-tool adapter contributions opened to community (each adapter = one PR)
+- [ ] i18n: ship `es`, `pt-BR`, `de`, `ja` for the marketing site
+
+### Cross-cutting (always in flight)
+
+- [x] CI: GitHub Actions — [`ci.yml`](./.github/workflows/ci.yml), [`release.yml`](./.github/workflows/release.yml), extension build, web build
+- [x] Changesets for monorepo versioning ([`.changeset/`](./.changeset))
+- [x] Telemetry pipeline (off by default, opt-in only) — `src/lib/telemetry.ts` in CLI
+- [x] Docs as Markdown under [`docs/`](./docs) (technical spec, pain points)
+- [x] [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) — Contributor Covenant 2.1
+- [x] Issue / PR templates + `CODEOWNERS`
+- [ ] Security review of at-rest encryption (see [`docs/TECHNICAL_SPEC.md §11`](./docs/TECHNICAL_SPEC.md))
+
+Fine-grained tracking lives in [GitHub issues](https://github.com/contextkit/contextkit/issues). <!-- TODO: real org/repo -->
 
 ## Contributing
 

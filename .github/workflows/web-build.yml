@@ -1,0 +1,52 @@
+# Web app build smoke test — marketing pages must build without Supabase env vars.
+# References:
+#   - https://github.com/actions/cache (used implicitly through setup-node + manual .next/cache)
+#   - https://github.com/pnpm/action-setup
+
+name: Web Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/web/**'
+      - '.github/workflows/web-build.yml'
+  pull_request:
+    paths:
+      - 'packages/web/**'
+      - '.github/workflows/web-build.yml'
+
+jobs:
+  build-web:
+    name: Build @contextkit/web
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache .next/cache
+        uses: actions/cache@v4
+        with:
+          path: packages/web/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('packages/web/**/*.[jt]s', 'packages/web/**/*.[jt]sx', 'pnpm-lock.yaml') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-
+
+      - name: Build web
+        run: pnpm --filter @contextkit/web build

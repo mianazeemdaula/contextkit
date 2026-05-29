@@ -1,0 +1,67 @@
+name: Bug report
+description: Report a reproducible bug in the CLI, extension, web app, or docs.
+title: "[bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report! Please fill out the form below so we can reproduce and fix the issue quickly.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which part of ContextKit is affected?
+      options:
+        - CLI (`contextkit` / `ck`)
+        - Browser extension
+        - Web app (contextkit.app)
+        - Docs site
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: "Run `ck --version`, or paste the extension / web app version."
+      placeholder: "e.g. contextkit@0.1.0, extension 0.1.0, web commit abcd1234"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, browser, Node version (if CLI).
+      placeholder: "macOS 14.5, Chrome 126, Node 22.5"
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: A minimal sequence of steps that reliably triggers the bug.
+      placeholder: |
+        1. Run `ck init`
+        2. Run `ck add work`
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include error messages, stack traces, or screenshots.
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context
+      description: Anything else that might help — config snippets, related issues, logs.

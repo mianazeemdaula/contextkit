@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
+import { Button } from "@/components/ui/Button";
+import { importTemplate } from "../contexts/actions";
 
 export const metadata = { title: "Templates — ContextKit" };
 
@@ -31,9 +33,24 @@ function loadTemplates(): Template[] {
   ];
 }
 
-/** Templates gallery — reads from /templates/*.md at build time. */
+/**
+ * Templates gallery — reads from /templates/*.md at build time. Each card has
+ * an "Add to my contexts" form that posts the template slug to the
+ * `importTemplate` server action, which creates a new context for the
+ * signed-in user and redirects to `/contexts/<id>`. Anonymous users get sent
+ * to `/login?next=/templates` by the action.
+ */
 export default function TemplatesPage() {
   const templates = loadTemplates();
+
+  /** Bound server action wrapper — needed because forms must call a function. */
+  async function importAction(formData: FormData): Promise<void> {
+    "use server";
+    const slug = String(formData.get("slug") ?? "");
+    if (!slug) throw new Error("Missing template slug");
+    await importTemplate(slug);
+  }
+
   return (
     <main className="mx-auto max-w-4xl px-6 py-10">
       <h1 className="font-serif text-3xl font-bold text-gray-900">Templates</h1>
@@ -51,6 +68,10 @@ export default function TemplatesPage() {
               {t.body.slice(0, 400)}
               {t.body.length > 400 ? "…" : ""}
             </pre>
+            <form action={importAction} className="mt-4">
+              <input type="hidden" name="slug" value={t.slug} />
+              <Button type="submit">Add to my contexts</Button>
+            </form>
           </li>
         ))}
       </ul>

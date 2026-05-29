@@ -7,21 +7,24 @@ import { success } from '../lib/log.js';
 
 interface RmOpts {
   yes?: boolean;
+  force?: boolean;
 }
 
-/** Register `ck rm <slug>` on the program. */
+/** Register `ck delete <slug>` (aliases: rm, remove) on the program. */
 export function register(program: Command): void {
   program
-    .command('rm <slug>')
+    .command('delete <slug>')
+    .alias('rm')
     .alias('remove')
-    .description('delete a context (version history is preserved)')
+    .description('delete a context (moved to trash; version history is preserved)')
     .option('-y, --yes', 'skip confirmation prompt')
+    .option('-f, --force', 'skip confirmation prompt')
     .action((slug: string, opts: RmOpts) => handler(slug, opts));
 }
 
 async function handler(slug: string, opts: RmOpts): Promise<void> {
   assertSlug(slug);
-  if (!opts.yes) {
+  if (!opts.yes && !opts.force) {
     const ok = await confirm(`delete context "${slug}"? [y/N] `);
     if (!ok) throw new CkError('EUSER', 'aborted');
   }

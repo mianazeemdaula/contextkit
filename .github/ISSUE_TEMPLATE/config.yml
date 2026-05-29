@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/contextkit/contextkit/discussions
+    about: Ask questions, share contexts, or propose ideas before opening an issue.
+  - name: Discord community
+    url: https://discord.gg/contextkit
+    about: Chat with the ContextKit community in real time.
+  - name: Security disclosure
+    url: https://github.com/contextkit/contextkit/security/advisories/new
+    about: Report a security vulnerability privately.

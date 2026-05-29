@@ -3,6 +3,7 @@ import { ensureLayout, home } from '../lib/storage.js';
 import { configPath, loadConfig, saveConfig, defaultConfig } from '../lib/config.js';
 import { stat } from 'node:fs/promises';
 import { success, info } from '../lib/log.js';
+import { track } from '../lib/telemetry.js';
 
 /** Register `ck init` on the program. */
 export function register(program: Command): void {
@@ -18,10 +19,13 @@ async function handler(): Promise<void> {
   if (!existedBefore) {
     await saveConfig(defaultConfig());
     success(`initialized contextkit at ${home()}`);
+    // Fire-and-forget; gated by `telemetry === true` inside `track`.
+    void track('cli.init', { fresh: true });
     return;
   }
   await loadConfig();
   info(`contextkit already initialized at ${home()}`);
+  void track('cli.init', { fresh: false });
 }
 
 async function pathExists(p: string): Promise<boolean> {
