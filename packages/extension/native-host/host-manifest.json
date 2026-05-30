@@ -4,6 +4,6 @@
   "path": "PLACEHOLDER_ABSOLUTE_PATH_TO_bridge.js",
   "type": "stdio",
   "allowed_origins": [
-    "chrome-extension://REPLACE_WITH_UNPACKED_EXTENSION_ID/"
+    "chrome-extension://lanacliaffacpljfbmamfdpiachamefj/"
   ]
 }

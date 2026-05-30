@@ -6,7 +6,7 @@ issues, pull requests, templates, and ideas.
 ## Quick start for contributors
 
 ```bash
-git clone https://github.com/<org>/contextkit.git
+git clone https://github.com/mianazeemdaula/contextkit.git
 cd contextkit
 pnpm install
 pnpm -r build

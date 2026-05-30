@@ -4,17 +4,17 @@
 
 ### Context, on tap — for every AI you use.
 
-[![npm version](https://img.shields.io/npm/v/contextkit?color=cb3837&logo=npm)](https://www.npmjs.com/package/contextkit)
-[![Build](https://img.shields.io/github/actions/workflow/status/contextkit/contextkit/ci.yml?branch=main)](https://github.com/contextkit/contextkit/actions)
+[![npm version](https://img.shields.io/npm/v/%40mianazeemdaula%2Fcontextkit?color=cb3837&logo=npm)](https://www.npmjs.com/package/%40mianazeemdaula%2Fcontextkit)
+[![Build](https://img.shields.io/github/actions/workflow/status/mianazeemdaula/contextkit/ci.yml?branch=main)](https://github.com/mianazeemdaula/contextkit/actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/contextkit/contextkit?style=social)](https://github.com/contextkit/contextkit/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/mianazeemdaula/contextkit?style=social)](https://github.com/mianazeemdaula/contextkit/stargazers)
 [![Discord](https://img.shields.io/discord/000000000000000000?label=discord&logo=discord&color=5865F2)](https://discord.gg/contextkit)
 
 Save your project, profile, and style-guide context **once**, then inject it into ChatGPT, Claude, Gemini, Perplexity, Cursor — or any AI tool — with a single click. ContextKit is open-source, AI-agnostic, and runs from a CLI, a browser extension, or a hosted web app.
 
 <!-- TODO: replace with demo.gif -->
 
-[**Get Started**](./docs/getting-started.md) · [**Docs**](./docs) · [**Try the web app**](https://contextkit.app)
+[**Get Started**](./docs/getting-started.md) · [**Docs**](./docs) · [**Web app**](https://contextkit.app) *(domain coming soon)*
 
 </div>
 
@@ -38,9 +38,9 @@ Every AI power user re-explains who they are, what they're building, and how the
 Install the CLI globally or use it on demand:
 
 ```bash
-npm install -g contextkit
+npm install -g @mianazeemdaula/contextkit
 # or
-npx contextkit
+npx @mianazeemdaula/contextkit
 ```
 
 Initialize your local store, add your first context, and copy it into any AI:
@@ -128,7 +128,7 @@ Status legend: ✅ shipped · 🟡 scaffolded, hardening · ⏳ planned
 - [x] Bundled templates (developer, writer, marketer)
 - [x] `login`, `logout`, `token`, `sync`, `completions`, `telemetry` commands
 - [x] Shell completions (`bash`, `zsh`, `fish`)
-- [ ] Publish `contextkit` to npm (needs `NPM_TOKEN`)
+- [x] Published to npm as [`@mianazeemdaula/contextkit`](https://www.npmjs.com/package/@mianazeemdaula/contextkit)
 - [ ] GitHub release with prebuilt single-file binary
 
 ### Phase 2 · Browser extension — 🟡 scaffolded
@@ -193,11 +193,11 @@ Status legend: ✅ shipped · 🟡 scaffolded, hardening · ⏳ planned
 - [x] Issue / PR templates + `CODEOWNERS`
 - [ ] Security review of at-rest encryption (see [`docs/TECHNICAL_SPEC.md §11`](./docs/TECHNICAL_SPEC.md))
 
-Fine-grained tracking lives in [GitHub issues](https://github.com/contextkit/contextkit/issues). <!-- TODO: real org/repo -->
+Fine-grained tracking lives in [GitHub issues](https://github.com/mianazeemdaula/contextkit/issues).
 
 ## Contributing
 
-We love contributions of every size — typo fixes, new AI-tool adapters, templates, docs, anything. Start with [CONTRIBUTING.md](./CONTRIBUTING.md), browse [`good first issue`](https://github.com/contextkit/contextkit/labels/good%20first%20issue), and please follow our [Code of Conduct](./CODE_OF_CONDUCT.md).
+We love contributions of every size — typo fixes, new AI-tool adapters, templates, docs, anything. Start with [CONTRIBUTING.md](./CONTRIBUTING.md), browse [`good first issue`](https://github.com/mianazeemdaula/contextkit/labels/good%20first%20issue), and please follow our [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 Not a coder? Submit a context template under [`templates/`](./templates) — it's the easiest way to help thousands of users.
 
@@ -205,7 +205,7 @@ Not a coder? Submit a context template under [`templates/`](./templates) — it'
 
 - **Discord** — [join the server](https://discord.gg/contextkit) <!-- TODO: real invite -->
 - **X / Twitter** — [@contextkit](https://x.com/contextkit) <!-- TODO: real handle -->
-- **GitHub Discussions** — [ask questions, share contexts](https://github.com/contextkit/contextkit/discussions)
+- **GitHub Discussions** — [ask questions, share contexts](https://github.com/mianazeemdaula/contextkit/discussions)
 
 ## How ContextKit compares
 

@@ -42,7 +42,7 @@ function writeMessage(msg) {
   process.stdout.write(Buffer.concat([header, json]));
 }
 
-function runCk(args) {
+function runCk(args, parseJson = true) {
   return new Promise((resolve) => {
     const cmd = process.platform === "win32" ? "ck.cmd" : "ck";
     const child = spawn(cmd, args, { shell: process.platform === "win32" });
@@ -56,6 +56,10 @@ function runCk(args) {
         resolve({ ok: false, error: stderr.trim() || `exit ${code}` });
         return;
       }
+      if (!parseJson) {
+        resolve({ ok: true, data: stdout });
+        return;
+      }
       try {
         resolve({ ok: true, data: JSON.parse(stdout) });
       } catch (err) {
@@ -65,14 +69,71 @@ function runCk(args) {
   });
 }
 
+/**
+ * ck list --json returns items shaped as:
+ *   { slug, frontmatter: { name, updatedAt, ... } }
+ * Normalize to the shape nativeHost.ts expects:
+ *   { slug, title, updatedAt? }
+ */
+function normalizeList(raw) {
+  if (!Array.isArray(raw)) return null;
+  return raw
+    .filter((item) => item && typeof item.slug === "string")
+    .map((item) => {
+      const fm = item.frontmatter ?? {};
+      const entry = { slug: item.slug, title: fm.name ?? item.slug };
+      if (fm.updatedAt) entry.updatedAt = fm.updatedAt;
+      return entry;
+    });
+}
+
+/**
+ * ck get <slug> --raw outputs the full .ctx file (YAML frontmatter + body).
+ * Extract name from frontmatter and body text without a YAML parser.
+ */
+function parseRawCtx(raw, slug) {
+  const lines = raw.split("\n");
+  if (lines[0] !== "---") {
+    return { slug, title: slug, body: raw };
+  }
+  let end = 1;
+  while (end < lines.length && lines[end] !== "---") end++;
+  const fmLines = lines.slice(1, end);
+  const bodyLines = lines.slice(end + 1);
+  let title = slug;
+  for (const line of fmLines) {
+    const m = line.match(/^name:\s*(.+)$/);
+    if (m) {
+      title = m[1].trim().replace(/^['"]|['"]$/g, "");
+      break;
+    }
+  }
+  return { slug, title, body: bodyLines.join("\n").replace(/^\n+/, "") };
+}
+
 readMessages(async (req) => {
   if (!req || typeof req.id !== "string") return;
   if (req.method === "list") {
     const r = await runCk(["list", "--json"]);
-    writeMessage({ id: req.id, ...r });
+    if (!r.ok) {
+      writeMessage({ id: req.id, ok: false, error: r.error });
+      return;
+    }
+    const data = normalizeList(r.data);
+    if (!data) {
+      writeMessage({ id: req.id, ok: false, error: "unexpected-list-shape" });
+      return;
+    }
+    writeMessage({ id: req.id, ok: true, data });
   } else if (req.method === "get" && typeof req.slug === "string") {
-    const r = await runCk(["get", req.slug, "--json"]);
-    writeMessage({ id: req.id, ...r });
+    // Use --raw to get frontmatter+body; parse name ourselves.
+    const r = await runCk(["get", req.slug, "--raw"], false);
+    if (!r.ok) {
+      writeMessage({ id: req.id, ok: false, error: r.error });
+      return;
+    }
+    const data = parseRawCtx(String(r.data), req.slug);
+    writeMessage({ id: req.id, ok: true, data });
   } else {
     writeMessage({ id: req.id, ok: false, error: "unknown-method" });
   }

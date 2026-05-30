@@ -1,0 +1,9 @@
+﻿{
+    "name":  "app.contextkit.bridge",
+    "description":  "ContextKit local bridge â€” exposes the `ck` CLI to the browser extension.",
+    "path":  "E:\\txdevs\\contextkit\\packages\\extension\\native-host\\app.contextkit.bridge.cmd",
+    "type":  "stdio",
+    "allowed_origins":  [
+                            "chrome-extension://lanacliaffacpljfbmamfdpiachamefj/"
+                        ]
+}
